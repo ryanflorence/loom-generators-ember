@@ -1,0 +1,19 @@
+{
+  "name": "loom-generators-ember",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ryan Florence",
+  "license": "MIT",
+  "dependencies": {
+    "fleck": "~0.5.1",
+    "advise": "~1.0.0",
+    "duck-punch": "~1.0.0"
+  },
+  "peerDependencies": {
+    "loom": "~2.0.0"
+  }
+}
