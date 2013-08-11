@@ -4,16 +4,22 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node_modules/.bin/mocha --require should --reporter simple --ui bdd $(find test -name \"*.spec.js\")",
+    "watch-test": "node_modules/.bin/mocha -w --require should --reporter list --ui bdd $(find test -name \"*.spec.js\")"
   },
   "author": "Ryan Florence",
   "license": "MIT",
   "dependencies": {
-    "fleck": "~0.5.1",
-    "advise": "~1.0.0",
-    "duck-punch": "~1.0.0"
+    "fleck": "~0.5.1"
   },
   "peerDependencies": {
     "loom": "~2.0.0"
+  },
+  "devDependencies": {
+    "mocha": "~1.12.0",
+    "loom": "~2.0.0",
+    "loom-engine-hbs": "~1.0.0",
+    "should": "~1.2.2",
+    "sinon": "~1.7.3"
   }
 }

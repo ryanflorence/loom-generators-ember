@@ -1,24 +1,26 @@
-var generator = require('./default');
-var punch = require('duck-punch');
 var componentize = require('../../lib/componentize_template');
 var validateComponent = require('../../lib/validate_component');
+var parent = require('./default');
+var path = require('path');
 
-module.exports = punch(Object.create(generator), {
+var generator = module.exports = Object.create(parent);
 
-  template: 'app/templates/template.hbs.hbs',
+generator.before = function(env) {
+  parent.before(env);
+  validateComponent(env.rawName);
+};
 
-  savePath: function(old, template, env) {
-    var savePath = old(template, env);
-    if (isComponent(savePath)) {
-      validateComponent(env.args[0]);
-      savePath = componentize(savePath);
-    }
-    return savePath;
-  }
+generator.templates = [
+  'app/components/component_component.js.hbs',
+  'app/templates/components/component.hbs.hbs'
+];
 
-});
+generator.savePath = function(template, env) {
+  var savePath = parent.savePath(template, env);
+  return isTemplate(savePath) ? componentize(savePath) : savePath;
+}
 
-function isComponent(savePath) {
-  return savePath.match(/^app\/templates\/components\//);
+function isTemplate(savePath) {
+  return path.extname(savePath) === '.hbs';
 }
 

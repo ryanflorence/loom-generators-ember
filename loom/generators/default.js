@@ -5,21 +5,23 @@ var msg = require('loom/lib/message');
 var generator = module.exports = Object.create(genericGenerator);
 
 generator.before = function(env) {
-  if (!env.args[0]) {
+  if (!env.args.length) {
     msg.error("You must specify a resource name, ie 'generate "+env.name+" user'");
+  } else {
+    env.rawName = env.args[0];
+    env.args[0] = inflector.underscore(env.args[0]);
   }
-  env.args[0] = inflector.underscore(env.args[0]);
 };
 
 generator.present = function(name) {
-  var options = arguments[arguments.length - 2];
+  var params = arguments[arguments.length - 2];
   var env = arguments[arguments.length - 1];
   if (appendable(env.name)) {
     name += '_'+env.name;
   }
   return {
     objectName: inflector.objectify(name),
-    options: options
+    params: params
   };
 };
 

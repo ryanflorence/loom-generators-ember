@@ -1,7 +1,7 @@
 var inflector = require('../../lib/inflector');
-var generator = require('./default');
+var defaultGenerator = require('./default');
 
-module.exports = generator;
+var generator = module.exports = Object.create(defaultGenerator);
 
 generator.present = function(name) {
   return {

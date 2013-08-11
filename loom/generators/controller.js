@@ -1,17 +1,15 @@
-var generator = require('./default');
-var punch = require('duck-punch');
+var parent = require('./default');
 var msg = require('loom/lib/message');
+var generator = module.exports = Object.create(parent);
 
-module.exports = punch(Object.create(generator), {
-  present: function(old, name, options, env) {
-    var locals = old(name, options, env);
-    locals.type = types[options.type];
-    if (!locals.type) {
-      locals.type = promptControllerType();
-    }
-    return locals;
+generator.present = function(name, params, env) {
+  var locals = parent.present(name, params, env);
+  locals.type = types[params.type];
+  if (locals.type == null) {
+    locals.type = promptControllerType();
   }
-});
+  return locals;
+}
 
 function promptControllerType() {
   var userInput = msg.prompt('What kind of controller: object, array, or neither? [o|a|n]');
