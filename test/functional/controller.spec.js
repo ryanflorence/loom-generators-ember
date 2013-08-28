@@ -7,19 +7,19 @@ describe('controller', function() {
 
   it('renders regular controllers', function() {
     var locals = {objectName: 'ApplicationController'};
-    var expected = render('app/controllers/controller_controller.js.hbs', locals);
+    var expected = render('app/controllers/controller.js.hbs', locals);
     loom('-sq controller application type:n').out.should.equal(expected);
   });
 
   it('renders object controllers', function() {
     var locals = {objectName: 'ApplicationController', type: 'Object'};
-    var expected = render('app/controllers/controller_controller.js.hbs', locals);
+    var expected = render('app/controllers/controller.js.hbs', locals);
     loom('-sq controller application type:object').out.should.equal(expected);
   });
 
   it('renders array controllers', function() {
     var locals = {objectName: 'ApplicationController', type: 'Array'};
-    var expected = render('app/controllers/controller_controller.js.hbs', locals);
+    var expected = render('app/controllers/controller.js.hbs', locals);
     loom('-sq controller application type:array').out.should.equal(expected);
   });
 

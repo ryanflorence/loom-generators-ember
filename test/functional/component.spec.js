@@ -7,7 +7,7 @@ describe('component', function() {
 
   it('renders the template correctly', function() {
     var locals = {objectName: 'XFooComponent'};
-    var component = render('app/components/component_component.js.hbs', locals);
+    var component = render('app/components/component.js.hbs', locals);
     var template = render('app/templates/components/component.hbs.hbs', locals);
     loom('-sq component x-foo').out.should.equal(component + template);
   });

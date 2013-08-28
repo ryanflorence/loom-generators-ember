@@ -15,7 +15,7 @@ describe('component generator', function() {
   });
 
   describe('savePath', function() {
-    var env = { args: ['x_foo'], rawName: 'x-foo', name: 'component'};
+    var env = { args: ['x-foo'], rawName: 'x-foo', name: 'component'};
 
     it('saves the template to the right place', function() {
       var path = generator.savePath(generator.templates[1], env);
@@ -24,7 +24,7 @@ describe('component generator', function() {
 
     it('saves the component to the right place', function() {
       var path = generator.savePath(generator.templates[0], env);
-      path.should.equal('app/components/x_foo_component.js');
+      path.should.equal('app/components/x-foo.js');
     });
   });
 });

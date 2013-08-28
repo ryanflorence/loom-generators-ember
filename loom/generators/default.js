@@ -9,7 +9,7 @@ generator.before = function(env) {
     msg.error("You must specify a resource name, ie 'generate "+env.name+" user'");
   } else {
     env.rawName = env.args[0];
-    env.args[0] = inflector.underscore(env.args[0]);
+    env.args[0] = inflector.dasherize(env.args[0]);
   }
 };
 
@@ -17,7 +17,7 @@ generator.present = function(name) {
   var params = arguments[arguments.length - 2];
   var env = arguments[arguments.length - 1];
   if (appendable(env.name)) {
-    name += '_'+env.name;
+    name += '-'+env.name;
   }
   return {
     objectName: inflector.objectify(name),
@@ -27,8 +27,7 @@ generator.present = function(name) {
 
 generator.template = function(env) {
   var plural = inflector.pluralize(env.name);
-  var append = appendable(env.name) ? '_'+env.name : '';
-  return 'app/'+plural+'/'+env.name+append+'.js.hbs';
+  return 'app/'+plural+'/'+env.name+'.js.hbs';
 };
 
 function appendable(generatorName) {

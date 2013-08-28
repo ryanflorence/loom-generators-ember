@@ -4,13 +4,13 @@ var msg = require('loom/lib/message');
 
 describe('default generator', function() {
   describe('before', function() {
-    it('inflects the name of the resource to underscores and saves the original', function() {
-      var env = { args: ['foo-bar'], name: 'controller' };
+    it('dasherizes the name of the resource and saves the original', function() {
+      var env = { args: ['foo_bar'], name: 'controller' };
       generator.before(env);
       env.should.eql({
-        args: ['foo_bar'],
+        args: ['foo-bar'],
         name: 'controller',
-        rawName: 'foo-bar'
+        rawName: 'foo_bar'
       });
     });
 
@@ -47,7 +47,7 @@ describe('default generator', function() {
   describe('template', function() {
     it('finds the right template for appendable object types', function() {
       var env = {name: 'controller'};
-      generator.template(env).should.equal('app/controllers/controller_controller.js.hbs');
+      generator.template(env).should.equal('app/controllers/controller.js.hbs');
     });
 
     it('finds the right template for non-appendable object types', function() {
