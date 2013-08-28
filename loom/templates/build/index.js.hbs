@@ -1,0 +1,15 @@
+// this file is auto-generated
+
+import routes from './config/routes';
+import App from './app';
+App.Router.map(routes);
+
+{{#each helpers}}
+import '{{path}}';{{/each}}
+
+{{#each modules}}
+import {{name}} from './{{path}}';
+App.{{name}} = {{name}};{{/each}}
+
+export default App;
+

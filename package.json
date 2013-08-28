@@ -1,6 +1,6 @@
 {
   "name": "loom-generators-ember",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,7 +10,8 @@
   "author": "Ryan Florence",
   "license": "MIT",
   "dependencies": {
-    "fleck": "~0.5.1"
+    "fleck": "~0.5.1",
+    "glob": "~3.2.6"
   },
   "peerDependencies": {
     "loom": "~2.0.0"
