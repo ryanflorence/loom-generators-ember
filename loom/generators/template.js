@@ -3,6 +3,7 @@ var parent = require('./default');
 var componentize = require('../../lib/componentize_template');
 var validateComponent = require('../../lib/validate_component');
 var generator = module.exports = Object.create(parent);
+var app = parent.appPath;
 
 generator.before = function(env) {
   parent.before(env);
@@ -13,9 +14,9 @@ generator.before = function(env) {
 
 generator.template = function(env) {
   if (isComponent(env.rawName)) {
-    return 'app/templates/components/component.hbs.hbs';
+    return app+'/templates/components/component.hbs.hbs';
   } else {
-    return 'app/templates/template.hbs.hbs';
+    return app+'/templates/template.hbs.hbs';
   }
 };
 

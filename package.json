@@ -1,6 +1,6 @@
 {
   "name": "loom-generators-ember",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -11,7 +11,8 @@
   "license": "MIT",
   "dependencies": {
     "fleck": "~0.5.1",
-    "glob": "~3.2.6"
+    "glob": "~3.2.6",
+    "fs-extra": "~0.6.4"
   },
   "peerDependencies": {
     "loom": "~2.0.0"

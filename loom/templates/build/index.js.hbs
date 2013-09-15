@@ -5,7 +5,7 @@ import App from './app';
 App.Router.map(routes);
 
 {{#each helpers}}
-import '{{path}}';{{/each}}
+import nothing from '{{path}}';{{/each}}
 
 {{#each modules}}
 import {{name}} from './{{path}}';
