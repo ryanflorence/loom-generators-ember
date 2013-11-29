@@ -6,30 +6,31 @@ var generator = module.exports = Object.create(genericGenerator);
 
 var app = generator.appPath = 'app';
 
-generator.before = function(env) {
+generator.before = function(env, next) {
   if (!env.args.length) {
     msg.error("You must specify a resource name, ie 'generate "+env.name+" user'");
   } else {
     env.rawName = env.args[0];
     env.args[0] = inflector.dasherize(env.args[0]);
+    next();
   }
 };
 
-generator.present = function(name) {
+generator.present = function(name, params, env, next) {
   var params = arguments[arguments.length - 2];
   var env = arguments[arguments.length - 1];
   if (appendable(env.name)) {
     name += '-'+env.name;
   }
-  return {
+  next({
     objectName: inflector.objectify(name),
     params: params
-  };
+  });
 };
 
-generator.template = function(env) {
+generator.template = function(env, next) {
   var plural = inflector.pluralize(env.name);
-  return app+'/'+plural+'/'+env.name+'.js.hbs';
+  next(app+'/'+plural+'/'+env.name+'.js.hbs');
 };
 
 function appendable(generatorName) {

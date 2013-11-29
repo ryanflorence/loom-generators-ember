@@ -9,18 +9,16 @@
   },
   "author": "Ryan Florence",
   "license": "MIT",
+  "peerDependencies": {
+    "loom": "~3.0.0-beta.1"
+  },
   "dependencies": {
     "fleck": "~0.5.1",
     "glob": "~3.2.6",
     "fs-extra": "~0.6.4"
   },
-  "peerDependencies": {
-    "loom": "~2.0.0"
-  },
   "devDependencies": {
     "mocha": "~1.12.0",
-    "loom": "~2.0.0",
-    "loom-engine-hbs": "~1.0.0",
     "should": "~1.2.2",
     "sinon": "~1.7.3"
   }

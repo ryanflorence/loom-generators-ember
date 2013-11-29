@@ -5,9 +5,10 @@ var path = require('path');
 var generator = module.exports = Object.create(parent);
 var app = generator.appPath;
 
-generator.before = function(env) {
+generator.before = function(next, env) {
   parent.before(env);
   validateComponent(env.rawName);
+  next();
 };
 
 generator.templates = [
@@ -15,9 +16,9 @@ generator.templates = [
   app+'/templates/components/component.hbs.hbs'
 ];
 
-generator.savePath = function(template, env) {
+generator.savePath = function(next, env, template) {
   var savePath = parent.savePath(template, env);
-  return isTemplate(savePath) ? componentize(savePath) : savePath;
+  next(isTemplate(savePath) ? componentize(savePath) : savePath);
 };
 
 function isTemplate(savePath) {
