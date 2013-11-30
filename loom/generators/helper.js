@@ -3,9 +3,9 @@ var defaultGenerator = require('./default');
 
 var generator = module.exports = Object.create(defaultGenerator);
 
-generator.present = function(name, params, env, next) {
+generator.present = function(next, env) {
   next({
-    helperName: inflector.camelize(name)
+    helperName: inflector.camelize(env.args[0])
   });
 };
 

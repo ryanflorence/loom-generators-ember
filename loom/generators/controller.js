@@ -2,17 +2,18 @@ var parent = require('./default');
 var msg = require('loom/lib/message');
 var generator = module.exports = Object.create(parent);
 
-generator.present = function(name, params, env, next) {
-  var locals = parent.present(name, params, env);
-  locals.type = types[params.type];
-  if (locals.type == null) {
-    promptControllerType(function(type) {
-      locals.type = type;
+generator.present = function(next, env, name, params, env, next) {
+  parent.present(function(locals) {
+    locals.type = types[params.type];
+    if (locals.type == null) {
+      promptControllerType(function(type) {
+        locals.type = type;
+        next(locals);
+      });
+    } else {
       next(locals);
-    });
-  } else {
-    next(locals);
-  }
+    }
+  }, env);
 };
 
 function promptControllerType(next) {

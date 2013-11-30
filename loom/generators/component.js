@@ -6,9 +6,10 @@ var generator = module.exports = Object.create(parent);
 var app = generator.appPath;
 
 generator.before = function(next, env) {
-  parent.before(env);
-  validateComponent(env.rawName);
-  next();
+  parent.before(function() {
+    validateComponent(env.rawName);
+    next();
+  }, env);
 };
 
 generator.templates = [
@@ -17,8 +18,9 @@ generator.templates = [
 ];
 
 generator.savePath = function(next, env, template) {
-  var savePath = parent.savePath(template, env);
-  next(isTemplate(savePath) ? componentize(savePath) : savePath);
+  parent.savePath(function(savePath) {
+    next(isTemplate(savePath) ? componentize(savePath) : savePath);
+  }, env, template);
 };
 
 function isTemplate(savePath) {

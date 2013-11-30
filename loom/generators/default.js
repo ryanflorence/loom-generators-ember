@@ -19,9 +19,9 @@ generator.before = function(next, env) {
 generator.present = function(next, env) {
   var params = env.params;
   var name = env.args[0];
-  if (appendable(env.name)) {
-    name += '-'+env.name;
-  }
+  //if (appendable(env.name)) {
+    //name += '-'+env.name;
+  //}
   next({
     objectName: inflector.objectify(name),
     params: params
@@ -33,8 +33,8 @@ generator.template = function(next, env) {
   next(app+'/'+plural+'/'+env.name+'.js.hbs');
 };
 
-function appendable(generatorName) {
-  var types = ['component', 'controller', 'route', 'view'];
-  return types.indexOf(generatorName) > -1;
-}
+//function appendable(generatorName) {
+  //var types = ['component', 'controller', 'route', 'view'];
+  //return types.indexOf(generatorName) > -1;
+//}
 

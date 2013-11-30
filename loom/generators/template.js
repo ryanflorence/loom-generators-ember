@@ -5,27 +5,29 @@ var validateComponent = require('../../lib/validate_component');
 var generator = module.exports = Object.create(parent);
 var app = parent.appPath;
 
-generator.before = function(env) {
-  parent.before(env);
-  if (isComponent(env.rawName)) {
-    validateComponent(env.rawName);
-  }
+generator.before = function(next, env) {
+  parent.before(function() {
+    if (isComponent(env.rawName)) {
+      validateComponent(env.rawName);
+      next();
+    }
+  }, env);
 };
 
-generator.template = function(env) {
+generator.template = function(next, env) {
   if (isComponent(env.rawName)) {
-    return app+'/templates/components/component.hbs.hbs';
+    next(app+'/templates/components/component.hbs.hbs');
   } else {
-    return app+'/templates/template.hbs.hbs';
+    next(app+'/templates/template.hbs.hbs');
   }
 };
 
-generator.savePath = function(template, env) {
+generator.savePath = function(next, env, template) {
   if (isComponent(env.rawName)) {
     var name = env.args[0].replace(/components\//, '');
-    return componentize(path.dirname(template)+'/'+name+'.hbs');
+    next(componentize(path.dirname(template)+'/'+name+'.hbs'));
   } else {
-    return parent.savePath(template, env);
+    parent.savePath(next, env, template);
   }
 };
 

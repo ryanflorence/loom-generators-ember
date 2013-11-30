@@ -1,8 +1,10 @@
+var Ember = require('ember');
+
 var {{objectName}} = DS.Model.extend({
 {{#each fields}}
   {{name}}: DS.attr('{{type}}'){{comma}}
 {{/each}}
 });
 
-export default {{objectName}};
+module.exports = {{objectName}};
 
