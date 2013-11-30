@@ -9,8 +9,8 @@ generator.before = function(next, env) {
   parent.before(function() {
     if (isComponent(env.rawName)) {
       validateComponent(env.rawName);
-      next();
     }
+    next();
   }, env);
 };
 

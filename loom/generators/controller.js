@@ -2,7 +2,8 @@ var parent = require('./default');
 var msg = require('loom/lib/message');
 var generator = module.exports = Object.create(parent);
 
-generator.present = function(next, env, name, params, env, next) {
+generator.present = function(next, env) {
+  var params = env.params;
   parent.present(function(locals) {
     locals.type = types[params.type];
     if (locals.type == null) {
@@ -19,7 +20,7 @@ generator.present = function(next, env, name, params, env, next) {
 function promptControllerType(next) {
   var q = 'What kind of controller: object, array, or neither? [o|a|n]';
   msg.prompt(q, function(input) {
-    next(types[userInput]);
+    next(types[input]);
   });
 }
 
