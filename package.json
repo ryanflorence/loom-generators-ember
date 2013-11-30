@@ -1,7 +1,7 @@
 {
   "name": "loom-generators-ember",
   "version": "0.0.3",
-  "description": "",
+  "description": "generator set use in ember-tools",
   "main": "index.js",
   "scripts": {
     "test": "node_modules/.bin/mocha --require should  --ui bdd $(find test -name \"*.spec.js\")",

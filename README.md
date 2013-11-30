@@ -1,17 +1,15 @@
-Ember Generators (Ember App Kit)
-================================
+Ember Generators (ember-tools)
+==============================
 
-These are the generators used for Ember App Kit, but you can include
-them into any project you want.
-
-They aren't done :)
+This generator set is used in [ember-tools][1] to create the application
+objects.
 
 Installation
 ------------
 
 `npm install loom-generators-ember --save`
 
-The --save is important, loom needs to read your package.json to find
+The `--save` is important, loom needs to read your package.json to find
 the generators.
 
 Generator Examples
@@ -23,11 +21,25 @@ generate controller users/mini-profile
 generate controller application type:array
 generate helper capitalize
 generate mixin queryable
-generate model user name:string age:number
 generate route index
 generate template profile
 generate view index
 ```
 
 That's pretty much everything.
+
+Models were removed, I (or you) will be creating a different generator
+set for ember-data models, serializers and adapters later.
+
+Contributing
+------------
+
+I welcome pull requests :)
+
+```sh
+npm install
+npm test
+```
+
+  [1]:https://github.com/rpflorence/ember-tools
 
