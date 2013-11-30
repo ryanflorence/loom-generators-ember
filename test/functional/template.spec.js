@@ -5,18 +5,24 @@ var sinon = require('sinon');
 
 describe('template', function() {
 
-  it('renders the template correctly', function() {
+  it('renders the template correctly', function(done) {
     var locals = {objectName: 'User'};
-    var expected = render('app/templates/template.hbs.hbs', locals);
-    loom('-sq template user').out.should.equal(expected);
+    render('app/templates/template.hbs.hbs', locals, function(expected) {
+      loom('-sq template user', function(env) {
+        env.out.should.equal(expected);
+        done();
+      });
+    });
   });
 
-  it('requires a - in a component name', function() {
+  it('requires a - in a component name', function(done) {
     var mock = sinon.mock(msg);
     mock.expects('error').once();
-    loom('-sq template components/foo');
-    mock.verify();
-    mock.restore();
+    loom('-sq template components/foo', function() {
+      mock.verify();
+      mock.restore();
+      done();
+    });
   });
 
 });

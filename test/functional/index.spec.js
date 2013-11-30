@@ -3,7 +3,7 @@ var render = require('../helpers/render');
 var stubIndex = require('../helpers/stub_index');
 
 describe('index build', function() {
-  it('renders the template correctly', function() {
+  it('renders the template correctly', function(done) {
     var stub = stubIndex();
     var locals = {
       modules: [
@@ -12,9 +12,13 @@ describe('index build', function() {
       ],
       helpers: [{ path: './helpers/capitalize' }]
     };
-    var index = render('build/index.js.hbs', locals);
-    loom('-sq index').out.should.equal(index);
-    stub.restore();
+    render('build/index.js.hbs', locals, function(index) {
+      loom('-sq index', function(env) {
+        env.out.should.equal(index);
+        stub.restore();
+        done();
+      });
+    });
   });
 
 });

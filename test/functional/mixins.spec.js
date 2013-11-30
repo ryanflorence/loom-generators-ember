@@ -3,10 +3,14 @@ var render = require('../helpers/render');
 
 describe('mixin', function() {
 
-  it('renders the template correctly', function() {
+  it('renders the template correctly', function(done) {
     var locals = { objectName: 'TacoCartable' };
-    var expected = render('app/mixins/mixin.js.hbs', locals);
-    loom('-sq mixin taco_cartable').out.should.equal(expected);
+    render('app/mixins/mixin.js.hbs', locals, function(expected) {
+      loom('-sq mixin taco_cartable', function(env) {
+        env.out.should.equal(expected);
+        done();
+      });
+    });
   });
 
 });
