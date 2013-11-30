@@ -4,55 +4,61 @@ var msg = require('loom/lib/message');
 
 describe('default generator', function() {
   describe('before', function() {
-    it('dasherizes the name of the resource and saves the original', function() {
+    it('dasherizes the name of the resource and saves the original', function(done) {
       var env = { args: ['foo_bar'], name: 'controller' };
-      generator.before(env);
-      env.should.eql({
-        args: ['foo-bar'],
-        name: 'controller',
-        rawName: 'foo_bar'
-      });
+      generator.before(function() {
+        env.should.eql({
+          args: ['foo-bar'],
+          name: 'controller',
+          rawName: 'foo_bar'
+        });
+        done();
+      }, env);
     });
 
     it('requires a resource name', function() {
-      var mock = sinon.mock(msg, 'error');
+      var mock = sinon.mock(msg);
       mock.expects('error').once();
-      generator.before({ args: [], name: 'controller' });
+      generator.before(function() {}, { args: [], name: 'controller' });
       mock.verify();
       mock.restore();
     });
   });
 
   describe('present', function() {
-    it('inflects the resource name to an ember object name', function() {
+    it('inflects the resource name to an ember object name', function(done) {
       var env = { args: ['taco_cart'], name: 'model' };
-      generator.present('taco_cart', {}, env).objectName.should.equal('TacoCart');
+      generator.present(function(locals) {
+        locals.objectName.should.equal('TacoCart');
+        done();
+      }, env)
     });
 
-    it('appends object types to objectName', function() {
+    it('appends object types to objectName', function(done) {
       var env = { args: ['taco_cart'] };
       env.name = 'component';
-      generator.present('taco_cart', {}, env).objectName.should.equal('TacoCartComponent');
-      env.name = 'controller';
-      generator.present('taco_cart', {}, env).objectName.should.equal('TacoCartController');
-      env.name = 'route';
-      generator.present('taco_cart', {}, env).objectName.should.equal('TacoCartRoute');
-      env.name = 'view';
-      generator.present('taco_cart', {}, env).objectName.should.equal('TacoCartView');
-      env.name = 'model';
-      generator.present('taco_cart', {}, env).objectName.should.equal('TacoCart');
+      generator.present(function(locals) {
+        locals.objectName.should.equal('TacoCartComponent');
+        done();
+      }, env)
     });
   });
 
   describe('template', function() {
-    it('finds the right template for appendable object types', function() {
+    it('finds the right template for appendable object types', function(done) {
       var env = {name: 'controller'};
-      generator.template(env).should.equal('app/controllers/controller.js.hbs');
+      generator.template(function(template) {
+        template.should.equal('app/controllers/controller.js.hbs');
+        done();
+      }, env);
     });
 
-    it('finds the right template for non-appendable object types', function() {
+    it('finds the right template for non-appendable object types', function(done) {
       var env = {name: 'model'};
-      generator.template(env).should.equal('app/models/model.js.hbs');
+      generator.template(function(template) {
+        template.should.equal('app/models/model.js.hbs');
+        done();
+      }, env);
     });
   });
 });
