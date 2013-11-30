@@ -36,8 +36,6 @@ describe('controller', function() {
   });
 
   it('prompts for controller type if not specified', function(done) {
-    //var mock = sinon.mock(msg);
-    //mock.expects('prompt').once();
     var prompt = msg.prompt;
     msg.prompt = function(q, cb) { cb('object'); };
     var locals = {objectName: 'ApplicationController', type: 'Object'};
