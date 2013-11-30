@@ -6,7 +6,7 @@ var generator = module.exports = Object.create(genericGenerator);
 
 var app = generator.appPath = 'app';
 
-generator.before = function(env, next) {
+generator.before = function(next, env) {
   if (!env.args.length) {
     msg.error("You must specify a resource name, ie 'generate "+env.name+" user'");
   } else {
@@ -16,9 +16,9 @@ generator.before = function(env, next) {
   }
 };
 
-generator.present = function(name, params, env, next) {
-  var params = arguments[arguments.length - 2];
-  var env = arguments[arguments.length - 1];
+generator.present = function(next, env) {
+  var params = env.params;
+  var name = env.args[0];
   if (appendable(env.name)) {
     name += '-'+env.name;
   }
@@ -28,7 +28,7 @@ generator.present = function(name, params, env, next) {
   });
 };
 
-generator.template = function(env, next) {
+generator.template = function(next, env) {
   var plural = inflector.pluralize(env.name);
   next(app+'/'+plural+'/'+env.name+'.js.hbs');
 };

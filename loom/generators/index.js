@@ -2,24 +2,39 @@ var parent = require('./default');
 var glob = require('glob');
 var inflector = require('../../lib/inflector');
 var fs = require('loom/lib/fs');
-var assignable = ['component', 'controller', 'model', 'route', 'view', 'mixin'];
+var msg = require('loom/lib/message');
+var assignable = [
+  'adapter',
+  'component',
+  'controller',
+  'mixin',
+  'model',
+  'route',
+  'serializer',
+  'view'
+];
+
 var app = parent.appPath;
 
 exports.template = 'build/index.js.hbs';
 
-exports.savePath = function() {
-  return app+'/index.js';
+exports.savePath = function(next) {
+  next(app+'/.index.js');
 };
 
-exports.present = function() {
-  return {
+exports.present = function(next) {
+  next({
     modules: modules(),
     helpers: helpers()
-  };
+  });
 };
 
-exports.write = function(savePath, src) {
-  fs.confirmWriteFileSync(savePath, src, 'force');
+exports.write = function(next, env, savePath, src) {
+  fs.writeFile(savePath, src, function(err) {
+    if (err) throw new Error(err);
+    msg.fileCreated(savePath);
+    next();
+  });
 };
 
 function modules() {

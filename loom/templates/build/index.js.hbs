@@ -1,15 +1,16 @@
-// this file is auto-generated
+// this file is auto-generated, do not edit
 
-import routes from './config/routes';
-import App from './app';
+require('ember'); // get Ember global around for the templates
+require('./.templates');
+var routes = require('./config/routes');
+var App = require('./config/application');
 App.Router.map(routes);
 
 {{#each helpers}}
-import nothing from '{{path}}';{{/each}}
+require('{{path}}');{{/each}}
 
 {{#each modules}}
-import {{name}} from './{{path}}';
-App.{{name}} = {{name}};{{/each}}
+App.{{name}} = require('{{path}}');{{/each}}
 
-export default App;
+module.exports = App;
 
