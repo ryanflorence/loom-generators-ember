@@ -5,30 +5,49 @@ var sinon = require('sinon');
 
 describe('controller', function() {
 
-  it('renders regular controllers', function() {
+  it('renders regular controllers', function(done) {
     var locals = {objectName: 'ApplicationController'};
-    var expected = render('app/controllers/controller.js.hbs', locals);
-    loom('-sq controller application type:n').out.should.equal(expected);
+    render('app/controllers/controller.js.hbs', locals, function(expected) {
+      loom('-sq controller application type:n', function(env) {
+        env.out.should.equal(expected);
+        done();
+      });
+    });
   });
 
-  it('renders object controllers', function() {
+  it('renders object controllers', function(done) {
     var locals = {objectName: 'ApplicationController', type: 'Object'};
-    var expected = render('app/controllers/controller.js.hbs', locals);
-    loom('-sq controller application type:object').out.should.equal(expected);
+    render('app/controllers/controller.js.hbs', locals, function(expected) {
+      loom('-sq controller application type:object', function(env) {
+        env.out.should.equal(expected);
+        done();
+      });
+    });
   });
 
-  it('renders array controllers', function() {
+  it('renders array controllers', function(done) {
     var locals = {objectName: 'ApplicationController', type: 'Array'};
-    var expected = render('app/controllers/controller.js.hbs', locals);
-    loom('-sq controller application type:array').out.should.equal(expected);
+    render('app/controllers/controller.js.hbs', locals, function(expected) {
+      loom('-sq controller application type:array', function(env) {
+        env.out.should.equal(expected);
+        done();
+      });
+    });
   });
 
-  it('prompts for controller type if not specified', function() {
-    var mock = sinon.mock(msg);
-    mock.expects('prompt').once();
-    loom('-sq controller application');
-    mock.verify();
-    mock.restore();
+  it('prompts for controller type if not specified', function(done) {
+    //var mock = sinon.mock(msg);
+    //mock.expects('prompt').once();
+    var prompt = msg.prompt;
+    msg.prompt = function(q, cb) { cb('object'); };
+    var locals = {objectName: 'ApplicationController', type: 'Object'};
+    render('app/controllers/controller.js.hbs', locals, function(expected) {
+      loom('-sq controller application', function(env) {
+        env.out.should.equal(expected);
+        msg.prompt = prompt;
+        done();
+      });
+    });
   });
 
 });
