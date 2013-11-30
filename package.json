@@ -1,6 +1,6 @@
 {
   "name": "loom-generators-ember",
-  "version": "0.0.3",
+  "version": "1.0.0",
   "description": "generator set use in ember-tools",
   "main": "index.js",
   "scripts": {
